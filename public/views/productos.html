@@ -1,0 +1,25 @@
+<h1>Productos</h1>
+<span ng-class="{'glyphicon glyphicon-refresh glyphicon-refresh-animate': isActive}"></span>
+<div ng-show="!isActive">
+
+    <pagination total-items="productos.length" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" items-per-page="numPerPage"></pagination>
+  <table class="table table-striped">
+    <thead><tr>
+      <th></th>
+      <th>ID</th>
+    </tr></thead>
+    <tbody><tr ng-repeat="producto in filteredProductos">
+        <td>
+          <a class="btn" href="/detalleProducto" ng-click="verDetalle(producto)">
+            <img src="{{producto.thumbnail}}" class="img-circle">                
+          </a>
+        </td>
+        <td>
+          {{ producto.id }}
+        </td>
+        <td>
+          {{ producto.title }}
+        </td>
+    </tr></tbody>
+  </table>
+</div>
