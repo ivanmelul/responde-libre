@@ -152,7 +152,7 @@ app.post('/saveProductos', function(req, res) {
                 
       callback = saveCallback;
 
-      var req = https.request(options, callback).end();
+      var req = http.request(options, callback).end();
 
     });
   }
@@ -461,9 +461,20 @@ app.get('/getProductosByCategoria', function(req, res) {
     });
   };
 
-  var req = https.request(options, callback).end();
+  var req = http.request(options, callback).end();
 
 
+});
+
+app.get('/getAllPreguntas', function(req, res) {
+  Preguntas.find({}, function(err, preguntas) {
+    var catMap = {};
+
+    preguntas.forEach(function(cat) {
+     });
+
+    res.send(catMap);  
+  });
 });
 
 app.get('/getAllCategorias', function(req, res) {
@@ -650,7 +661,7 @@ var profile_user = '';
 passport.use(new MercadoLibreStrategy({
     clientID: '8897826357766426',
     clientSecret: '9Uc9Olu30h0ozswLFisUxM66zSgpxHQO',
-    callbackURL: 'https://'+config.URL+':'+config.port+'/auth/mercadolibre/callback',
+    callbackURL: 'http://'+config.URL+':'+config.port+'/auth/mercadolibre/callback',
   },
   function (accessToken, refreshToken, profile, done) {
     // + store/retrieve user from database, together with access token and refresh token 
@@ -720,15 +731,15 @@ app.post('/notifications', function(req, res) {
 // routes ==================================================
 require('./app/routes')(app); // pass our application into our routes
 
-// // start app ===============================================
-// app.listen(port);  
-// console.log('Magic happens on port ' + port);      // shoutout to the user
-// exports = module.exports = app;            // expose app
+// start app ===============================================
+app.listen(port);  
+console.log('Magic happens on port ' + port);      // shoutout to the user
+exports = module.exports = app;            // expose app
 
 
   
   //app.listen(port);
-  
+  /*
     https.createServer({
       secureProtocol: 'TLSv1_method', 
       key: fs.readFileSync('./key.pem', 'utf8'),
@@ -740,3 +751,4 @@ require('./app/routes')(app); // pass our application into our routes
 
 
 
+*/
