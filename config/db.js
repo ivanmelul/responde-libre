@@ -1,3 +1,3 @@
 module.exports = {
-	url : 'mongodb://localhost:27017/ml'
+	url : 'mongodb://localhost:27017/responde-libre'
 }

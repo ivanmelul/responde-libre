@@ -43,6 +43,10 @@ res.setHeader('Access-Control-Allow-Origin', '*');
 
 
 
+var preguntaSchema = new mongoose.Schema({
+  all: mongoose.Schema.Types.Mixed
+});
+
 var ventaSchema = new mongoose.Schema({
     id: Number
   , comments: String
@@ -94,6 +98,7 @@ var publicidadSchema = new mongoose.Schema({
   enviado: Boolean
 });
 
+var Preguntas = mongoose.model('Preguntas', preguntaSchema);
 var Ventas = mongoose.model('Ventas', ventaSchema);
 var Productos = mongoose.model('Productos', productoSchema);
 var Categorias = mongoose.model('Categorias', categoriaSchema);
@@ -151,6 +156,35 @@ app.post('/saveProductos', function(req, res) {
 
     });
   }
+
+    savePreguntaCallback = function(response) {
+      var str = '';
+      response.on('data', function (chunk) {
+        str += chunk;
+      });
+
+      response.on('end', function () {
+          str = JSON.parse(str);
+          var preguntas = [{
+              all: str
+          }];   
+          Preguntas.collection.insert(preguntas
+          , onInsert);
+          function onInsert(err, docs) {
+              if (err) {
+                console.log('403');
+              } else {
+                console.log(docs.length + ' pregunta ha sido guardada.');
+              }
+          }
+      });
+
+
+
+    }
+
+
+
 
     saveVentaCallback = function(response) {
       var str = '';
@@ -672,10 +706,10 @@ app.post('/notifications', function(req, res) {
 
 
   switch(req.body.topic) {
-    case 'orders': return saveOne(req.body, saveVentaCallback);break;
+    //case 'orders': return saveOne(req.body, saveVentaCallback);break;
     //case 'items': return saveOne(req.body, saveProductoCallback);break;
-    case 'questions': return notifications.orderNotifiactions(req.body);break;
-    case 'payments': return notifications.orderNotifiactions(req.body);break;
+    case 'questions': return saveOne(req.body, savePreguntaCallback);break;
+    //case 'payments': return notifications.orderNotifiactions(req.body);break;
     default: return notifications.orderNotifiactions(req.body);break;
   }
   //console.log('-----------------end new notify--------------');
