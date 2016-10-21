@@ -466,16 +466,19 @@ app.get('/getProductosByCategoria', function(req, res) {
 
 });
 
+
 app.get('/getAllPreguntas', function(req, res) {
   Preguntas.find({}, function(err, preguntas) {
-    var catMap = {};
+    var pregMap = {};
 
-    preguntas.forEach(function(cat) {
-     });
+    preguntas.forEach(function(preg) {
+      pregMap[preg._id] = preg;
+    });
 
-    res.send(catMap);  
+    res.send(pregMap);  
   });
 });
+
 
 app.get('/getAllCategorias', function(req, res) {
   Categorias.find({}, function(err, categorias) {
