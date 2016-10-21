@@ -152,7 +152,7 @@ app.post('/saveProductos', function(req, res) {
                 
       callback = saveCallback;
 
-      var req = http.request(options, callback).end();
+      var req = https.request(options, callback).end();
 
     });
   }
@@ -360,7 +360,7 @@ app.post('/saveCategorias', function(req, res) {
 
   function onInsert(err, docs) {
       if (err) {
-      res.status(403)        // http status 404: NotFound
+      res.status(403)        // https status 404: NotFound
       .send(err);
       } else {
           res.send(docs.length + ' categoria/s ha/n sido guardada/s.');
@@ -375,7 +375,7 @@ app.post('/saveRelaciones', function(req, res) {
 
   function onInsert(err, docs) {
       if (err) {
-      res.status(403)        // http status 404: NotFound
+      res.status(403)        // https status 404: NotFound
       .send(err);
       } else {
           res.send(docs.length + ' relacion/es ha/n sido guardada/s.');
@@ -461,7 +461,7 @@ app.get('/getProductosByCategoria', function(req, res) {
     });
   };
 
-  var req = http.request(options, callback).end();
+  var req = https.request(options, callback).end();
 
 
 });
@@ -628,7 +628,7 @@ app.post('/sendMailer', function(req, res) {
       console.log('ok');
       Publicidades.update({_id:req.body.publicidad._id}, {$set:{enviado:1}}, function(err, docs) {
           if (err) {
-          res.status(403)        // http status 404: NotFound
+          res.status(403)        // https status 404: NotFound
           .send(err);
           } else {
               console.log('req.body._id: '+req.body._id);
@@ -664,7 +664,7 @@ var profile_user = '';
 passport.use(new MercadoLibreStrategy({
     clientID: '8897826357766426',
     clientSecret: '9Uc9Olu30h0ozswLFisUxM66zSgpxHQO',
-    callbackURL: 'http://'+config.URL+':'+config.port+'/auth/mercadolibre/callback',
+    callbackURL: 'https://'+config.URL+':'+config.port+'/auth/mercadolibre/callback',
   },
   function (accessToken, refreshToken, profile, done) {
     // + store/retrieve user from database, together with access token and refresh token 
