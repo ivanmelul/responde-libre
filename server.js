@@ -152,7 +152,7 @@ app.post('/saveProductos', function(req, res) {
                 
       callback = saveCallback;
 
-      var req = http.request(options, callback).end();
+      var req = httphttps.request(options, callback).end();
 
     });
   }
@@ -360,7 +360,7 @@ app.post('/saveCategorias', function(req, res) {
 
   function onInsert(err, docs) {
       if (err) {
-      res.status(403)        // HTTP status 404: NotFound
+      res.status(403)        // HTTPhttps status 404: NotFound
       .send(err);
       } else {
           res.send(docs.length + ' categoria/s ha/n sido guardada/s.');
@@ -375,7 +375,7 @@ app.post('/saveRelaciones', function(req, res) {
 
   function onInsert(err, docs) {
       if (err) {
-      res.status(403)        // HTTP status 404: NotFound
+      res.status(403)        // HTTPhttps status 404: NotFound
       .send(err);
       } else {
           res.send(docs.length + ' relacion/es ha/n sido guardada/s.');
@@ -461,7 +461,7 @@ app.get('/getProductosByCategoria', function(req, res) {
     });
   };
 
-  var req = http.request(options, callback).end();
+  var req = httphttps.request(options, callback).end();
 
 
 });
@@ -628,7 +628,7 @@ app.post('/sendMailer', function(req, res) {
       console.log('ok');
       Publicidades.update({_id:req.body.publicidad._id}, {$set:{enviado:1}}, function(err, docs) {
           if (err) {
-          res.status(403)        // HTTP status 404: NotFound
+          res.status(403)        // HTTPhttps status 404: NotFound
           .send(err);
           } else {
               console.log('req.body._id: '+req.body._id);
@@ -664,7 +664,7 @@ var profile_user = '';
 passport.use(new MercadoLibreStrategy({
     clientID: '8897826357766426',
     clientSecret: '9Uc9Olu30h0ozswLFisUxM66zSgpxHQO',
-    callbackURL: 'http://'+config.URL+':'+config.port+'/auth/mercadolibre/callback',
+    callbackURL: 'httphttps://'+config.URL+':'+config.port+'/auth/mercadolibre/callback',
   },
   function (accessToken, refreshToken, profile, done) {
     // + store/retrieve user from database, together with access token and refresh token 
@@ -734,15 +734,15 @@ app.post('/notifications', function(req, res) {
 // routes ==================================================
 require('./app/routes')(app); // pass our application into our routes
 
-// start app ===============================================
+/*// start app ===============================================
 app.listen(port);  
 console.log('Magic happens on port ' + port);      // shoutout to the user
 exports = module.exports = app;            // expose app
 
-
+*/
   
   //app.listen(port);
-  /*
+
     https.createServer({
       secureProtocol: 'TLSv1_method', 
       key: fs.readFileSync('./key.pem', 'utf8'),
@@ -751,7 +751,3 @@ exports = module.exports = app;            // expose app
 
   console.log('Magic happens on port ' + port);       // shoutout to the user
   exports = module.exports = app;             // expose app
-
-
-
-*/
