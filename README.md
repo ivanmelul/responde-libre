@@ -33,5 +33,5 @@ If you have any questions or requests, email us at [chris@scotch.io](mailto:chri
 - Create the files are excepted in : .gitignore (config.js)
 
 - mongo
-- use adfit
+- use responde-libre
 - db.getCollection('ventas').createIndex( { "id": 1 }, { unique: true } )
